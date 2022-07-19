@@ -1,2 +1,2 @@
 # genshin-artifacts-api
- An API for viewing genshin artifacts
+ Tool for Genshin Impact players to view different artifacts
