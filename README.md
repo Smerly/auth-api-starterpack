@@ -2,7 +2,7 @@
 
 A tools for Genshin Impact players to be able to add artifact types and combine them to use for different artifact set combinations!
 
-# # How to run
+`# #` How to run
 
 **Go into project directory**
 ```cd genshin-artifact-api```
