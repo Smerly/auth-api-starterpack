@@ -1,36 +1,79 @@
-# 🔐 auth-api-starterpack
+# Genshin Impact Artifact API
 
-[![GitHub](https://img.shields.io/github/forks/droxey/auth-api-starterpack.svg?style=flat-square)](https://github.com/droxey/auth-api-starterpack/network)
-[![GitHub](https://img.shields.io/github/issues/droxey/auth-api-starterpack.svg?style=flat-square)](https://github.com/droxey/auth-api-starterpack/issues)
-[![The MIT License](https://img.shields.io/badge/license-MIT-orange.svg?style=flat-square)](http://opensource.org/licenses/MIT)
+A tools for Genshin Impact players to be able to add artifact types and combine them to use for different artifact set combinations!
 
-Custom, authenticated API instructions and starter pack for BEW 1.3 students!
+# # How to run
 
-## Installation
+**Go into project directory**
+```cd genshin-artifact-api```
 
-1. Fork this repository and clone your fork locally.
-1. Open the repository folder in your editor of choice:
+**Install project dependencies**
+```npm install```
 
-    ```bash
-    $ cd auth-api-starterpack
-    $ atom .
-    ```
+**Run it!**
+```npm start```
 
-1. Run `npm install` to install project dependencies into the activated environment.
-1. Execute `npm start` to run the development server.
+# # Models
 
-## Development
+**User**
+Includes username (String)
+Includes password (String)
 
-### `#TODO` === Hint
+```
+{
+		username: "Some Username",
+		password: "Some Password",
+		builds: [Build1.id, Build2.id],
+		artifacts: [ Artifact1.id, Artifact2.id ],
+},
+```
 
-* I've added **helpful `#TODO` placeholders, comments, and hints throughout the project** to jog your memory in case you need a hand! Simply `CTRL` + `Shift` + `F` to Find All in your editor, and **search for `#TODO`.** You'll find a helpful list of hints waiting for you!
+**Artifact**
 
-## Deployment
+Includes a artifact set name (String)
+Includes a creator/owner name (User)
+```
+{
+		artifactSet: "Blizzard Strayer",
+		owner: User.id,
+},
+```
+**Build** (for artifacts per character)
 
-### Heroku
+Includes a name for build (String)
+Includes 5 Artifact slots per each of 5 slots in one build (Artifact)
+Includes the creator/owner of the build (User)
+```
+{
+		name: "Build1",
+		flower: Artifact.id,
+		feather: Artifact.id,
+		sands: Artifact.id,
+		goblet: Artifact.id,
+		circlet: Artifact.id,
+		owner: User.id,
+},
+```
 
-Follow this [Node.js Deployment Guide](https://devcenter.heroku.com/articles/getting-started-with-nodejs) to deploy your application on Heroku. Be sure to complete all of the steps!
+# # Endpoints
 
-## [BEW 1.3] Project Requirements
+**Builds**
+* GET ```/```: Displays all builds
+* GET ```/builds/new```: Create a new build form
+* POST ```/builds/new```: Create a new build
+* GET ```/builds/:id```: Get and see build by ID
 
-* View the [**requirements document**](https://github.com/Product-College-Courses/BEW-1.2-Authentication-and-Associations/blob/master/Projects/02-Custom-API-Project.md) in the [Class Repository](https://github.com/Product-College-Courses/BEW-1.2-Authentication-and-Associations).
+**Artifacts**
+* GET ```/allArtifacts```: Displays all artifacts
+* GET ```/artifacts/new```: Create a new artifact form
+* POST ```/artifacts/new```: Create a new artifact
+* GET ```/artifacts/:id```: Get and see artifact by ID
+
+**User**
+* GET ```/sign-up```: Sign up form
+* POST ```/sign-up```: Sign up new User
+* GET ```/logout```: Logout of current User
+* GET ```/login```: Login form
+* POST ```/login```: Login to a User
+
+
