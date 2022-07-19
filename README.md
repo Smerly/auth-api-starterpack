@@ -82,4 +82,3 @@ Includes the creator/owner of the build (User)
 - GET `/login`: Login form
 - POST `/login`: Login to a User
 
-> > > > > > > 72e7a8dec415ba6105c100717fbf0cd83840c711
