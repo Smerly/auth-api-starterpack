@@ -1,9 +1,8 @@
 const Artifact = require('../models/artifact');
-const Stat = require('../models/stat');
 const User = require('../models/user');
 
 module.exports = (app) => {
-	app.get('/artifacts', (req, res) => {
+	app.get('/allArtifacts', (req, res) => {
 		const currentUser = req.user;
 		Artifact.find({})
 			.lean()
@@ -16,16 +15,30 @@ module.exports = (app) => {
 				console.log(err.message);
 			});
 	});
+	// app.get('/', (req, res) => {
+	// 	const currentUser = req.user;
+	// 	Artifact.find({})
+	// 		.lean()
+	// 		.populate('owner')
+	// 		.populate('build')
+	// 		.then((artifacts) =>
+	// 			res.render('artifacts-index', { artifacts, currentUser })
+	// 		)
+	// 		.catch((err) => {
+	// 			console.log(err.message);
+	// 		});
+	// });
 
 	app.get('/artifacts/new', (req, res) => {
 		var currentUser = req.user;
-		const stat = Stat();
-		res.render('artifacts-new', { currentUser, stat });
+		res.render('artifacts-new', { currentUser });
 	});
 
 	app.post('/artifacts/new', (req, res) => {
 		if (req.user) {
 			const newArtifact = new Artifact(req.body);
+			const userId = req.user._id;
+			newArtifact.owner = userId;
 			newArtifact
 				.save()
 				.then(() => User.findById(userId))

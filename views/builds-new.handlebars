@@ -2,7 +2,7 @@
 
     <div class="col-sm-4 col-sm-offset-4">
 
-        <form action="/artifacts/new" method="post">
+        <form action="/builds/new" method="post">
 
             <legend>Create a New Build Here</legend>
 
@@ -11,37 +11,80 @@
                 <input type="text" name="name" class="form-control" id="name" placeholder="Build Name">
             </div>
 
+            {{!-- <div class="mb-3 form-group">
+                <label for="Flower">Flower Piece</label>
+                <input type='text' name="flower" class="form-control" id="flower" placeholder="First Substat"></input>
+            </div> --}}
+
             <div class="mb-3 form-group">
                 <label for="Flower">Flower Piece</label>
+                <div style='display: flex; flex-direction:column;'>
+                    {{#each artifacts}}
+                    <label>{{this.artifactSet}}</label>
+                    <input type='radio' name="flower" value='flowa'>
+                    {{/each}} </div>
+                {{!-- <input type="text" name="flower" class="form-control" id="flower" placeholder="Artifact set"> --}} {{!-- <select>
 
-                <input type='text' name="flower" class="form-control" id="flower" placeholder="First Substat"></input>
+                    {{#select flower}}
+                    {{#each artifacts}}
 
+                    <option style='width: 200px' id="flower" value={{this}} name="flower">
+                        {{this.artifactSet}}
+                    </option>
+
+                    {{/each}}
+                    {{/select}}
+                </select> --}}
             </div>
 
             <div class="mb-3 form-group">
                 <label for="Feather Piece">Feather Piece</label>
-
-                <input type='text' name="feather" class="form-control" id="feather" placeholder="Feather"></input>
-
+                <select>
+                    {{#each artifacts}}
+                    <option style='width: 200px' id={{this.artifactSet}} value={{this.artifactSet}}
+                        name={{this.artifactSet}}>
+                        {{this.artifactSet}}
+                    </option>
+                    {{/each}}
+                </select>
             </div>
 
             <div class="mb-3 form-group">
                 <label for="Sands Piece">Sands Piece</label>
 
-                <input type='text' name="sands" class="form-control" id="sands" placeholder="Sands Piece"></input>
+                <select>
+                    {{#each artifacts}}
+                    <option style='width: 200px' id={{this.artifactSet}} value={{this.artifactSet}}
+                        name={{this.artifactSet}}>
+                        {{this.artifactSet}}
+                    </option>
+                    {{/each}}
+                </select>
 
             </div>
 
             <div class="mb-3 form-group">
                 <label for="Goblet Piece">Goblet Piece</label>
-
-                <input type='text' name="goblet" class="form-control" id="goblet" placeholder="Goblet Piece"></input>
+                <select>
+                    {{#each artifacts}}
+                    <option style='width: 200px' id={{this.artifactSet}} value={{this.artifactSet}}
+                        name={{this.artifactSet}}>
+                        {{this.artifactSet}}
+                    </option>
+                    {{/each}}
+                </select>
             </div>
 
             <div class="mb-3 form-group">
                 <label for="Circlet Piece">Circlet Piece</label>
-
-                <input type='text' name="circlet" class="form-control" id="circlet" placeholder="Circlet Piece"></input>
+                <select>
+                    {{#each artifacts}}
+                    <option style='width: 200px' id={{this.artifactSet}} value={{this.artifactSet}}
+                        name={{this.artifactSet}}>
+                        {{this.artifactSet}}
+                    </option>
+                    {{/each}}
+                </select>
             </div>
 
             <div class='text-right'>

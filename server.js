@@ -1,5 +1,4 @@
 require('dotenv').config();
-
 const express = require('express');
 var cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken');
@@ -8,6 +7,13 @@ const {
 	allowInsecurePrototypeAccess,
 } = require('@handlebars/allow-prototype-access');
 const Handlebars = require('handlebars');
+
+var jsdom = require('jsdom');
+const { JSDOM } = jsdom;
+const { window } = new JSDOM();
+const { document } = new JSDOM('').window;
+global.document = document;
+var $ = (jQuery = require('jquery')(window));
 
 const app = express();
 
@@ -19,8 +25,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(expressValidator());
 app.use(cookieParser());
-
-require('./data/db');
 
 var checkAuth = (req, res, next) => {
 	console.log('Checking authentication');
@@ -46,13 +50,30 @@ require('./controllers/build')(app);
 require('./data/db');
 // require('./controllers/stat.js')(app);
 
-app.engine(
-	'handlebars',
-	exphbs.engine({
-		defaultLayout: 'main',
-		handlebars: allowInsecurePrototypeAccess(Handlebars),
-	})
-);
+// app.engine(
+// 	'handlebars',
+// 	exphbs.engine({
+// 		defaultLayout: 'main',
+// 		handlebars: allowInsecurePrototypeAccess(Handlebars),
+// 	})
+// );
+// app.set('view engine', 'handlebars');
+
+const hbs = exphbs.create({
+	defaultLayout: 'main',
+	handlebars: allowInsecurePrototypeAccess(Handlebars),
+
+	helpers: {
+		select: function (value, options) {
+			var $el = $('<select />').html(options.fn(this));
+			$el.find('[value="' + value + '"]').attr({ selected: 'selected' });
+			console.log($el.html());
+			return $el.html();
+		},
+	},
+});
+
+app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 
 app.listen(3000, () => {

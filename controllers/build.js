@@ -1,5 +1,7 @@
 const Build = require('../models/build');
+const Artifact = require('../models/artifact');
 const User = require('../models/user');
+const Handlebars = require('handlebars');
 
 module.exports = (app) => {
 	app.get('/', (req, res) => {
@@ -14,18 +16,26 @@ module.exports = (app) => {
 	});
 	app.get('/builds/new', (req, res) => {
 		var currentUser = req.user;
-		res.render('builds-new', { currentUser });
+		Artifact.find({})
+			.lean()
+			.populate('owner')
+			.populate('build')
+			.then((artifacts) => res.render('builds-new', { currentUser, artifacts }))
+			.catch((err) => {
+				console.log(err.message);
+			});
 	});
 
 	app.post('/builds/new', (req, res) => {
 		if (req.user) {
-			const newBuild = new Build('req.body');
-			const userId = req.user_id;
-			newBuild.flower = {};
-			newBuild.feather = {};
-			newBuild.sands = {};
-			newBuild.goblet = {};
-			newBuild.circlet = {};
+			const newBuild = new Build(req.body);
+			const userId = req.user._id;
+			newBuild.owner = userId;
+			Handlebars.registerHelper('select', function (value, options) {
+				var $el = $('<select />').html(options.fn(this));
+				$el.find('[value="' + value + '"]').attr({ selected: 'selected' });
+				return $el.html();
+			});
 			newBuild
 				.save()
 				.then(() => User.findById(userId))
@@ -42,9 +52,8 @@ module.exports = (app) => {
 		}
 	});
 
-	app.get('builds/:id', (req, res) => {
+	app.get('/builds/:id', (req, res) => {
 		const currentUser = req.user;
-		// confuse: .populate() line
 		Build.findById(req.params.id)
 			.populate('artifacts')
 			.lean()
