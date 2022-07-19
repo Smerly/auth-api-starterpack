@@ -1,12 +1,17 @@
 <div class="row">
     <div class="col-sm-6 col-sm-offset-3">
-        <h2>{{builds.name}}</h2>
-        {{builds.flower.artifactSet}}
-        {{builds.feather.artifactSet}}
-        {{builds.sands.artifactSet}}
-        {{builds.goblet.artifactSet}}
-        {{builds.circlet.artifactSet}}
-        <p>{{builds.owner.username}}</p>
 
+        <h2>{{build.name}}</h2>
+        {{build.flower.artifactSet}}
+        {{build.feather.artifactSet}}
+        {{build.sands.artifactSet}}
+        {{build.goblet.artifactSet}}
+        {{build.circlet.artifactSet}}
+
+        <h3> Artifact set bonuses: </h3>
+
+        {{#each set}}
+        <p>{{this}}</p>
+        {{/each}}
     </div>
 </div>

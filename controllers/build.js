@@ -57,7 +57,25 @@ module.exports = (app) => {
 		Build.findById(req.params.id)
 			.populate('artifacts')
 			.lean()
-			.then((builds) => res.render('builds-show', { builds, currentUser }))
+			.then((build) => {
+				let sets = [];
+				const tempArr = [];
+				if (build.flower) {
+					tempArr.push(build.flower.artifactSet);
+					tempArr.push(build.feather.artifactSet);
+					tempArr.push(build.sands.artifactSet);
+					tempArr.push(build.goblet.artifactSet);
+					tempArr.push(build.circlet.artifactSet);
+				}
+				tempArr.sort((a, b) => a.length - b.length);
+				for (let i = 0; i < tempArr.length; i++) {
+					if (tempArr[i] === tempArr[i + 1]) {
+						sets.push(`2pc ${tempArr[i]}`);
+					}
+				}
+
+				return res.render('builds-show', { build, currentUser, sets });
+			})
 			.catch((err) => {
 				console.log(err);
 			});
