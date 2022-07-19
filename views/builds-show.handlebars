@@ -2,16 +2,31 @@
     <div class="col-sm-6 col-sm-offset-3">
 
         <h2>{{build.name}}</h2>
-        {{build.flower.artifactSet}}
-        {{build.feather.artifactSet}}
-        {{build.sands.artifactSet}}
-        {{build.goblet.artifactSet}}
-        {{build.circlet.artifactSet}}
+        <div style="display: flex; flex-direction: row">
+            {{#each tempArr}}
+            <div style='width: 100px;
+	                height: 100px;
+	                border: 1px black solid;
+                    margin:10px;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center'>
+                <div style='border-bottom: 1px black solid'>
+                    {{this.piece}}
+                </div>
+                <div>
+                    {{this.type}}
+                </div>
+            </div>
+            {{/each}}
 
-        <h3> Artifact set bonuses: </h3>
+        </div>
 
-        {{#each set}}
+
+        {{!-- <h3> Artifact set bonuses: </h3>
+
+        {{#each sets}}
         <p>{{this}}</p>
-        {{/each}}
+        {{/each}} --}}
     </div>
 </div>

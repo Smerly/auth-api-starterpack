@@ -53,28 +53,48 @@ module.exports = (app) => {
 	});
 
 	app.get('/builds/:id', (req, res) => {
+		const cheese = 'hi';
 		const currentUser = req.user;
 		Build.findById(req.params.id)
 			.populate('artifacts')
 			.lean()
 			.then((build) => {
-				let sets = [];
+				let test = '';
+				const sets = [];
 				const tempArr = [];
-				if (build.flower) {
-					tempArr.push(build.flower.artifactSet);
-					tempArr.push(build.feather.artifactSet);
-					tempArr.push(build.sands.artifactSet);
-					tempArr.push(build.goblet.artifactSet);
-					tempArr.push(build.circlet.artifactSet);
-				}
-				tempArr.sort((a, b) => a.length - b.length);
-				for (let i = 0; i < tempArr.length; i++) {
-					if (tempArr[i] === tempArr[i + 1]) {
-						sets.push(`2pc ${tempArr[i]}`);
-					}
-				}
+				let count = [4];
+				Artifact.findById(build.flower).then((artifact) => {
+					tempArr.push({ piece: 'Flower', type: artifact.artifactSet });
+				});
+				Artifact.findById(build.feather).then((artifact) => {
+					tempArr.push({ piece: 'Feather', type: artifact.artifactSet });
+				});
+				Artifact.findById(build.sands).then((artifact) => {
+					tempArr.push({ piece: 'Sands', type: artifact.artifactSet });
+				});
+				Artifact.findById(build.goblet).then((artifact) => {
+					tempArr.push({ piece: 'Goblet', type: artifact.artifactSet });
+				});
+				Artifact.findById(build.circlet).then((artifact) => {
+					tempArr.push({ piece: 'Circlet', type: artifact.artifactSet });
+				});
 
-				return res.render('builds-show', { build, currentUser, sets });
+				// tempArr.sort((a, b) => a.length - b.length);
+
+				// for (let i = 0; i < tempArr.length; i++) {
+				// 	// sets.push('2pc');
+				// 	// sets.push();
+				// 	if (tempArr[i] === tempArr[i + 1]) {
+				// 		sets.push(`2pc ${tempArr[i]}`);
+				// 	}
+				// }
+
+				return res.render('builds-show', {
+					build,
+					currentUser,
+					tempArr,
+					sets,
+				});
 			})
 			.catch((err) => {
 				console.log(err);

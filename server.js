@@ -76,8 +76,8 @@ const hbs = exphbs.create({
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 
-app.listen(3000, () => {
-	console.log('API listening on port http://localhost:3000!');
+app.listen(7000, () => {
+	console.log('API listening on port http://localhost:7000!');
 });
 
 module.exports = app;
