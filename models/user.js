@@ -9,6 +9,7 @@ const UserSchema = new Schema(
 		password: { type: String, select: false },
 		username: { type: String, required: true },
 		builds: [{ type: Schema.Types.ObjectId, ref: 'Build' }],
+		artifacts: [{ type: Schema.Types.ObjectId, ref: 'Artifact' }],
 	},
 	{ timestamps: { createdAt: 'created_at' } }
 );

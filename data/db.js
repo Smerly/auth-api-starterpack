@@ -4,7 +4,7 @@
 const mongoose = require('mongoose');
 assert = require('assert');
 
-const url = 'mongodb://localhost/';
+const url = 'mongodb://localhost/db';
 mongoose.Promise = global.Promise;
 mongoose.connect(
 	url,
