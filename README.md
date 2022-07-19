@@ -13,7 +13,7 @@ A tools for Genshin Impact players to be able to add artifact types and combine 
 **Run it!**
 ```npm start```
 
-# # Models
+## Models
 
 **User**
 Includes username (String)
@@ -55,7 +55,7 @@ Includes the creator/owner of the build (User)
 },
 ```
 
-# # Endpoints
+## Endpoints
 
 **Builds**
 * GET ```/```: Displays all builds
